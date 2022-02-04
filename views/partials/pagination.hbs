@@ -1,0 +1,9 @@
+<section class="pagination">
+    {{#if hasPreviousPage}}
+        <a href="?page={{previousPage}}">Last</a>
+    {{/if}}
+    <a href="?page={{currentPage}}" class="active">{{currentPage}}</a>
+    {{#if hasNextPage}}
+        <a href="?page={{nextPage}}">Next</a>
+    {{/if}}
+</section>

@@ -1,0 +1,65 @@
+<main>
+    {{#if hasProducts }}
+        <div class="grid">
+            {{#if isAuthenticated}}
+                {{#each prods}}
+                <article class="card product-item">
+                    <header class="card__header">
+                        <h1 class="product__title">{{ title }}</h1>
+                    </header>
+                    <div class="card__image">
+                        <img src="/{{ imageUrl }}" alt="A Book">
+                    </div>
+                    <div class="card__content">
+                        <h2 class="product__price">${{ price }}</h2>
+                        <p class="product__description">{{ description }}</p>
+                    </div>
+                        <div class="card__actions">
+                            <a href="/products/{{ _id }}" class="btn">Details</a>
+                                <form action="/cart" method="POST">
+                                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                                    <input type="hidden" name="productId" value="{{ _id }}">
+                                        <button type="submit" class="btn">Add to Cart</button>
+                                </form>
+                        </div>
+                </article>
+                {{/each }}
+            {{else}}
+                {{#each prods}}
+                    <article class="card product-item">
+                        <header class="card__header">
+                            <h1 class="product__title">{{ title }}</h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="/{{ imageUrl }}" alt="A Book">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="product__price">${{ price }}</h2>
+                            <p class="product__description">{{ description }}</p>
+                        </div>
+                            <div class="card__actions">
+                                <a href="/products/{{ _id }}" class="btn">Details</a>
+                            </div>
+                    </article>
+                {{/each }}
+            {{/if}}
+        </div>
+        {{> pagination}}
+    {{else }}
+        <h2>No Products Found!</h2>
+    {{/if }}
+</main>
+
+<script>
+    let csrfToken = '';
+    document.querySelectorAll('form')
+        .forEach(f => {
+            if (f.action.split('http://localhost:3000/')[1] == 'logout') {
+                csrfToken = f.children._csrf.value;
+            }
+            
+            if (csrfToken) {
+                f.children._csrf.value = csrfToken;
+            }
+        });
+</script>

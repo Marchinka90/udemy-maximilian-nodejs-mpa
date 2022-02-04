@@ -1,0 +1,31 @@
+<main>
+    <ul class="cart__item-list">
+        {{#each products}}
+            <li class="cart__item">
+                <h1>{{ productId.title}}</h1>
+                <h2>Quantity: {{ quantity }}</h2>
+            </li>
+        {{/each}}
+    </ul>
+    <hr>
+    <div class="centered">
+        <h2>Total: ${{totalSum}}</h2>
+    </div>
+    <div class="centered">
+        <input type="hidden" id="session-id" value="{{ sessionId }}">
+        <button id="order-btn" class="btn">ORDER</button>
+        
+    </div>
+    
+</main>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    let stripe = Stripe('pk_test_51KG5R7F1cQKaEejSPpimCANQ8hdkJ5BObsEDHF0dYuT1KPHUY8MzJFb1MWS2k32tEsIMkiGAXRLJme2xtBW6xxoI00njNl87bO');
+    let orderBtn = document.getElementById('order-btn');
+    let sessionId = document.getElementById('session-id').value;
+    orderBtn.addEventListener('click', function() {
+        stripe.redirectToCheckout({
+            sessionId: sessionId
+        });
+    });
+</script>

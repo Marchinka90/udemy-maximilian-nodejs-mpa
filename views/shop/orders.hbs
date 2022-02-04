@@ -1,0 +1,25 @@
+<main>
+    {{#if hasOrders }}
+        <ul class="orders">
+            {{#each orders as |order|}}
+                <li class="orders__item">
+                    <h1>Order - #{{ _id }} - <a href="/orders/{{ order._id }}">Invoice</a></h1>
+                    <ul class="orders__products">
+                        {{#each products}}
+                            <li class="orders__products-item">
+                                {{ product.title }} ({{ quantity }}) 
+                            </li>
+                        {{/each}}
+                    </ul>
+                    {{!-- <h2>Quantity: {{dataValues.cartItem.dataValues.quantity}}</h2>
+                    <form action="/cart-delete-item" method="POST">
+                        <input type="hidden" name="productId" value="{{ dataValues.id }}">
+                        <button type="submit" class="btn">Delete</button>
+                    </form> --}}
+                </li>
+            {{/each}}
+        </ul>        
+    {{else}}
+        <h1>Nothings here</h1>
+    {{/if}}
+</main>

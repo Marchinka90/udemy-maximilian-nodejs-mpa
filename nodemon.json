@@ -1,0 +1,7 @@
+{
+    "env": {
+        "MONGO_DEFAULT_DATABASE": "",
+        "PORT": "",
+        "STRIPE_KEY": ""
+    }
+}

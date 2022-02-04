@@ -1,0 +1,41 @@
+<main>
+    {{#if hasProducts }}
+        <ul class="cart__item-list">
+            {{#each products}}
+                <li class="cart__item">
+                    <h1>{{ productId.title}}</h1>
+                    <h2>Quantity: {{ quantity }}</h2>
+                    <form action="/cart-delete-item" method="POST">
+                        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                        <input type="hidden" name="productId" value="{{ productId._id }}">
+                        <button type="submit" class="btn">Delete</button>
+                    </form>
+                </li>
+            {{/each}}
+        </ul>
+        <hr>
+        <div class="centered">
+            {{!-- <form action="/create-order" method="POST">
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <button type="submit" class="btn">Order Now</button>
+            </form> --}}
+            <a href="/checkout" class="btn">Order now</a>
+        </div>
+    {{else}}
+        <h1>No Products in Cart!</h1>
+    {{/if}}
+</main>
+
+<script>
+    let csrfToken = '';
+    document.querySelectorAll('form')
+        .forEach(f => {
+            if (f.action.split('http://localhost:3000/')[1] == 'logout') {
+                csrfToken = f.children._csrf.value;
+            }
+            
+            if (csrfToken) {
+                f.children._csrf.value = csrfToken;
+            }
+        });
+</script>
